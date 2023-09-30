@@ -1,0 +1,33 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['button'])) {
+        $pressedButton = $_POST['button'];
+
+       
+        setcookie('lastButton', $pressedButton, time() + 3600); 
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        
+        .selected {
+            border: 2px solid red;
+        }
+    </style>
+    <title>Button Press</title>
+</head>
+<body>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <button type="submit" name="button" value="Button1" class="<?php echo isset($_COOKIE['lastButton']) && $_COOKIE['lastButton'] == 'Button1' ? 'selected' : ''; ?>">Button 1</button>
+    <button type="submit" name="button" value="Button2" class="<?php echo isset($_COOKIE['lastButton']) && $_COOKIE['lastButton'] == 'Button2' ? 'selected' : ''; ?>">Button 2</button>
+</form>
+
+</body>
+</html>
